@@ -1,0 +1,7 @@
+<script>
+import{createSelect}from'@melt-ui/svelte';
+const{elements:{trigger,menu,option},states:{selectedLabel,selected},options:{disabled}}=createSelect({defaultSelected:{value:'apple',label:'Apple'}});
+let pending=false;window.audit=()=>({value:$selected?.value,disabled:$disabled});
+</script>
+<main><h1>Melt UI Select</h1><div class="row"><button class="trigger" {...$trigger} use:trigger>{$selectedLabel}</button><button onclick={()=>{pending=true;setTimeout(()=>{disabled.set(true);pending=false},3000)}}>{pending?'Disabling…':'Disable in 3 seconds'}</button></div><div class="menu" {...$menu} use:menu>{#each [{value:'apple',label:'Apple'},{value:'orange',label:'Orange'}] as item}<div class="option" {...$option(item)} use:option>{item.label}</div>{/each}</div><div class="readout">Disabled: {String($disabled)}<br/>Value: {$selected?.value}</div></main>
+<style>main{padding:70px;font-family:Arial,sans-serif}h1{font-size:28px;margin-bottom:36px}.row{display:flex;gap:24px}button{padding:12px 16px;font-size:16px;border:1px solid #555;border-radius:4px;background:white;color:#111}.trigger{width:340px;text-align:left}.trigger:disabled{color:#777;background:#f3f3f3}.menu{width:340px;background:white;border:1px solid #bbb;border-radius:4px;padding:4px;box-sizing:border-box}.option{padding:12px;cursor:pointer}.option:hover,.option[data-highlighted]{background:#e8f0ff}.readout{margin-top:260px;font-size:21px;line-height:2}</style>

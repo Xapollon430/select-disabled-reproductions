@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1"
+  },
+  "dependencies": {
+    "vite": "8.3.5",
+    "@ionic/core": "9.0.10"
+  }
+}

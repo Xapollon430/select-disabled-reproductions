@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "vite": "8.3.5",
+    "baseui": "18.2.0",
+    "styletron-react": "6.1.1",
+    "styletron-engine-atomic": "1.6.2"
+  }
+}
