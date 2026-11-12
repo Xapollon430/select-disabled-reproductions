@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vanilla Calendar Pro disabled input reproduction</title>
+    <style>
+      body { font: 17px system-ui, sans-serif; margin: 32px; }
+      button, input { font: inherit; padding: 8px; }
+      input:disabled { background: #ddd; }
+    </style>
+  </head>
+  <body>
+    <h1>Vanilla Calendar Pro</h1>
+    <p>Start the timer, open the calendar, wait for the input to become disabled, then click May 12.</p>
+    <button id="arm" type="button">Disable in 2 seconds</button>
+    <input id="date" aria-label="Date" value="2025-05-05" />
+    <p id="result"></p>
+    <script type="module">
+      import { Calendar } from 'vanilla-calendar-pro';
+      import 'vanilla-calendar-pro/styles/core.css';
+
+      const input = document.querySelector('#date');
+      const result = document.querySelector('#result');
+      let changes = 0;
+
+      function renderStatus() {
+        const state = input.disabled ? 'Disabled' : 'Enabled';
+        result.textContent = `${state} · Selection: ${input.value} · Changes: ${changes}`;
+      }
+
+      const calendar = new Calendar(input, {
+        inputMode: true,
+        selectedMonth: 4,
+        selectedYear: 2025,
+        selectedDates: ['2025-05-05'],
+        onChangeToInput(instance) {
+          input.value = instance.context.selectedDates[0] ?? '';
+          changes++;
+          renderStatus();
+        },
+      });
+      calendar.init();
+      renderStatus();
+
+      document.querySelector('#arm').addEventListener('click', () => {
+        setTimeout(() => {
+          input.disabled = true;
+          renderStatus();
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>
