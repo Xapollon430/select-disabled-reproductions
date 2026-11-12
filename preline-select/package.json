@@ -1,0 +1,8 @@
+{
+  "name": "preline-select-disabled-repro",
+  "type": "module",
+  "private": true,
+  "scripts": { "start": "vite", "dev": "vite" },
+  "dependencies": { "preline": "5.1.0" },
+  "devDependencies": { "vite": "6.4.1" }
+}

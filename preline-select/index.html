@@ -1,0 +1,30 @@
+<!doctype html><meta charset="utf-8">
+<style>
+body { font: 18px system-ui; color: #152337; background: #f6f8fa; margin: 35px; }
+button { font: inherit; padding: 8px; }
+.hidden { display: none; }
+.menu { background: white; margin-top: 8px; width: 180px; border: 1px solid #ccd2dc; border-radius: 4px; opacity: 0; transition: opacity 1.4s; }
+.menu.opened { opacity: 1; }
+.option { padding: 10px; cursor: pointer; }
+.option:hover { background: #e8f2ff; }
+.trigger.disabled { opacity: .5; }
+</style>
+<h1>Preline Advanced Select</h1>
+<button id="arm">Disable in 2 seconds</button>
+<p id="result"></p>
+<select id="fruit" class="hidden">
+  <option value="apple" selected>Apple</option>
+  <option value="orange">Orange</option>
+</select>
+<script type="module">
+import HSSelect from 'preline/plugins/select-non-auto';
+{
+  const select=document.querySelector('#fruit');
+  let changes=0;
+  const paint=()=>document.querySelector('#result').textContent=(select.disabled?'Disabled':'Enabled')+' · Selection: '+select.value+' · Changes: '+changes;
+  window.picker=new HSSelect(select, {toggleTag:'<button type="button" aria-label="Fruit"></button>', toggleClasses:'trigger',dropdownClasses:'menu',optionClasses:'option'});
+  select.addEventListener('change',()=>{changes++;paint();});
+  document.querySelector('#arm').onclick=()=>setTimeout(()=>{select.disabled=true;paint();},2000);
+  paint();
+}
+</script>
