@@ -1,0 +1,27 @@
+<!doctype html><meta charset="utf-8"><title>Bootstrap Select — disabled while open</title>
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
+<script src="node_modules/jquery/dist/jquery.min.js"></script><script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<main style="max-width:520px;margin:3rem auto">
+<h2>Bootstrap Select</h2>
+<button id="arm" type="button" class="btn btn-outline-primary mb-3">Disable in 4 seconds</button>
+<fieldset><label for="select">Project</label><br>
+<select id="select" data-container="body"><option>Alpha</option><option>Beta</option></select>
+</fieldset>
+<p id="result" class="mt-3"></p>
+</main>
+<script>
+const script = document.createElement('script');
+script.src = 'node_modules/bootstrap-select/dist/js/bootstrap-select.js';
+script.onload = () => {
+  const select = document.querySelector('#select');
+  const fieldset = document.querySelector('fieldset');
+  let changes = 0;
+  const paint = () => document.querySelector('#result').textContent =
+    (fieldset.disabled ? 'Disabled' : 'Enabled') + ' · Selection: ' + select.value + ' · Changes: ' + changes;
+  $(select).selectpicker().on('changed.bs.select', () => { changes++; paint(); });
+  document.querySelector('#arm').onclick = () => setTimeout(() => { fieldset.disabled = true; paint(); }, 4000);
+  paint();
+};
+document.head.append(script);
+</script>
